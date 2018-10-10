@@ -1,6 +1,10 @@
 package main
 
 import (
+	"fmt"
+	"os"
+	"strings"
+
 	flag "github.com/ogier/pflag"
 )
 
@@ -11,6 +15,18 @@ var (
 func main() {
 	// Parse Flags
 	flag.Parse()
+
+	// if user does not supply flags:
+	if flag.NFlag() == 0 {
+		fmt.Printf("Usage: %s [options]\n", os.Args[0])
+		fmt.Println("Options:")
+		flag.PrintDefaults()
+		os.Exit(1)
+	}
+
+	users := strings.Split(user, ",")
+	fmt.Printf("Searching user(s): %s\n", users)
+
 }
 
 func init() {
